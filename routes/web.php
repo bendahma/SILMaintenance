@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemandeTravailController;
 use App\Http\Controllers\MachineController;
+use App\Http\Controllers\PersonnelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +27,5 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/machine/remove/{id}',[MachineController::class,'remove'])->name('machine.remove');
     Route::resource('/machine',MachineController::class);
     Route::resource('/demandeTravail',DemandeTravailController::class);
+    Route::resource('/personnel',PersonnelController::class);
 });

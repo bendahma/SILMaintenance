@@ -15,8 +15,10 @@ class CreateDemandeTravailsTable extends Migration
     {
         Schema::create('demande_travails', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('personnel_id')->constrained();
             $table->foreignId('machine_id')->constrained();
             $table->foreignId('panne_id')->constrained();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

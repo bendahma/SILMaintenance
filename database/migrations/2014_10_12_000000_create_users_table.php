@@ -21,12 +21,12 @@ class CreateUsersTable extends Migration
             $table->string('adresse')->nullable();
             $table->string('commune')->nullable();
             $table->string('wilaya')->nullable();
-            $table->string('username');
+            $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps();                                                                                                                                           
         });
     }
 
