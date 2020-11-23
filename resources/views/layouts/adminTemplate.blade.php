@@ -9,13 +9,13 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Admin - Dashboard</title>
+  <title>SIL - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.22/datatables.min.css"/>
+   <!-- Custom styles for this template-->
   <link href="{{ asset('css/site.css') }}" rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -46,30 +46,7 @@
           <span>Dashboard</span></a>
       </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Machines
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#machine" aria-expanded="true" aria-controls="machine">
-          <i class="fas fa-truck"></i>
-          <span>Machines</span>
-        </a>
-        <div id="machine" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Action:</h6>
-            <a class="collapse-item" href=" {{route('machine.create')}} ">Nouveau machine</a>
-            <a class="collapse-item" href=" {{route('machine.index')}} ">Lists des machines</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Divider -->
+     
       <hr class="sidebar-divider">
 
       <!-- Heading -->
@@ -77,9 +54,9 @@
         Rapport
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
+      <!-- Demande de travail -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#supplementaireHeurs" aria-expanded="true" aria-controls="collapseTwo">
           <i class="far fa-file-word"></i>
           <span>Demande de Travail</span>
         </a>
@@ -91,20 +68,17 @@
           </div>
         </div>
       </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
+      <!-- Heures Supplémentaire -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#supplementaireHeurs" aria-expanded="true" aria-controls="supplementaireHeurs">
+          <i class="far fa-clock"></i>
+          <span>Heures Supplémentaire</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="supplementaireHeurs" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            <h6 class="collapse-header">Action:</h6>
+            <a class="collapse-item" href=" "><i class="fas fa-stopwatch"></i> Ajouté Des Heures </a>
+            <a class="collapse-item" href=" "><i class="fas fa-business-time"></i> Lists Des Heures</a>
           </div>
         </div>
       </li>
@@ -114,18 +88,31 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        ressource humaine
+       Les resources
       </div>
-
+      <!-- Machines -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#machine" aria-expanded="true" aria-controls="machine">
+          <i class="fas fa-truck"></i>
+          <span>Gestion Des Machines</span>
+        </a>
+        <div id="machine" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Action:</h6>
+            <a class="collapse-item" href=" {{route('machine.create')}} ">Nouveau machine</a>
+            <a class="collapse-item" href=" {{route('machine.index')}} ">Lists des machines</a>
+          </div>
+        </div>
+      </li>
       <!-- Service -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-building"></i>
-          <span>Service</span>
+          <span>Gestion Du Service</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
+            <h6 class="collapse-header">SERVICE</h6>
             <a class="collapse-item" href=" {{route('service.create')}} "><i class="fas fa-clinic-medical"></i> Nouveau service</a>
             <a class="collapse-item" href=" {{route('service.index')}} "><i class="fas fa-dungeon"></i> Listes des service</a>            
           </div>
@@ -134,15 +121,32 @@
 
       <!-- Personnel -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#personnels" aria-expanded="true" aria-controls="personnels">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#stock" aria-expanded="true" aria-controls="stock">
           <i class="fas fa-users-cog"></i>
-          <span>Personnel</span>
+          <span>Gestion Du Personnel</span>
+        </a>
+        <div id="stock" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">STOCK</h6>
+            <a class="collapse-item" href=" {{route('personnel.create')}} "><i class="fas fa-user-circle"></i> Ajouté une personne</a>
+            <a class="collapse-item" href=" {{route('personnel.index')}} "><i class="fas fa-id-card"></i> Listes des personnes</a>            
+          </div>
+        </div>
+      </li>
+
+      <!-- Stock -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#personnels" aria-expanded="true" aria-controls="personnels">
+          <i class="fas fa-layer-group"></i>
+          <span>Gestion Du Stock</span>
         </a>
         <div id="personnels" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Personnel</h6>
-            <a class="collapse-item" href=" {{route('personnel.create')}} "><i class="fas fa-user-circle"></i> Nouveau personne</a>
-            <a class="collapse-item" href=" {{route('personnel.index')}} "><i class="fas fa-id-card"></i> Listes des personnes</a>            
+            <a class="collapse-item" href=" "> ... </a>
+            <a class="collapse-item" href=" "> ... </a>
+            <a class="collapse-item" href=" "> ... </a>
+            <a class="collapse-item" href=" "> ... </a>
           </div>
         </div>
       </li>
@@ -399,8 +403,14 @@
   </div>
 
   <script src="{{asset('js/app.js')}}"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.22/datatables.min.js"></script>
+  <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        });
+  </script>
   @include('sweetalert::alert')
-
+  @yield('scripts')
 </body>
 
 </html>

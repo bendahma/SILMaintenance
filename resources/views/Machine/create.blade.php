@@ -4,7 +4,7 @@
     <div class="">
         <div class="card-card-default">
             <div class="card-header">
-                <h4>Ajouté une machine</h4>
+                <h4> {{isset($machine) ? 'Mettre à jours les informations du Machine' : 'Ajouté Nouveau Machine'}}</h4>
             </div>
             <div class="card-body bg-white rounded ">
                 <form action=" {{ isset($machine) ? route('machine.update',$machine->id) : route('machine.store') }}" method="POST">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="row mt-4">
                         <div class="col">
-                            <input type="submit" value="Mettre à jours" class="btn btn-outline-success btn-block">
+                            <input type="submit" value=" {{isset($machine) ? 'Mettre à jours' : 'Ajouté Machine'}} " class="btn btn-outline-success btn-block">
                         </div>
                         <div class="col">
                             <input type="reset" value="Efface" class="btn btn-danger btn-block">

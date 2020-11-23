@@ -4,10 +4,10 @@
     <div class="container">
 
         <div class="">
-            <h3 class="font-weight-bold">Lists des services</h3>
+            <h3 class="font-weight-bold">Lists Des Services</h3>
         </div>
 
-        <table class="table table-bordered bg-white">
+        <table class="table table-bordered bg-white" id="myTable">
             <thead>
                 <tr>
                     <td>N°</td>

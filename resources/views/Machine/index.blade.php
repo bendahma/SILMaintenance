@@ -7,7 +7,7 @@
             <h3 class="font-weight-bold">Lists des machines</h3>
         </div>
 
-        <table class="table table-bordered bg-white">
+        <table class="table table-bordered bg-white" id="myTable">
             <thead>
                 <tr>
                     <td>N°</td>

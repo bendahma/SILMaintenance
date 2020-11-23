@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Personnels;
+use App\Models\User;
+use App\Models\Personnel;
+use App\Models\Service;
 
 class PersonnelController extends Controller
 {
@@ -17,7 +19,8 @@ class PersonnelController extends Controller
     
     public function create()
     {
-        return view('personnel.create');
+        $services = Service::all();
+        return view('personnel.create',compact('services'));
     }
 
     

@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="opacity: 0.85; font-weight:700">
-    <div class="row justify-content-center">
+<div class="container" style="opacity: 0.90; font-weight:700">
+    <div class="row d-felx justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">{{ __('Se connecté') }}</div>
+                <h3 class="card-header d-flex justify-content-center ">{{ __('Se connecté') }}</h3>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-right"><i class="far fa-user-circle fa-2x"></i></label>
 
                             <div class="col-md-6">
                                 <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-key fa-2x"></i></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">

@@ -4,32 +4,36 @@
     <div class="container">
 
         <div class="">
-            <h3 class="font-weight-bold">Lists des machines</h3>
+            <h3 class="font-weight-bold">Lists Des Personnels</h3>
         </div>
 
-        <table class="table table-bordered bg-white">
+        <table class="table table-bordered bg-white" id="myTable">
             <thead>
                 <tr>
                     <td>N°</td>
-                    <td>Matricule</td>
-                    <td>Type</td>
-                    <td>Marque</td>
+                    <td>Nom & Pernom</td>
+                    <td>Date Naissance</td>
+                    <td>Titre</td>
+                    <td>Fonction</td>
+                    <td>Service</td>
                     <td>Action</td>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($machines as $key => $machine)
+                @foreach ($personnels as $key => $person)
                     <tr>
                         <td> {{$key = $key+1}} </td>
-                        <td> {{$machine->matricule}} </td>
-                        <td> {{$machine->machineType}} </td>
-                        <td> {{$machine->mark}} </td>
+                        <td> {{$person->user->nom . ' ' . $person->user->prenom}} </td>
+                        <td> {{$person->user->dateNaissance}} </td>
+                        <td> {{$person->titre}} </td>
+                        <td> {{$person->fonction}} </td>
+                        <td> </td>
                         <td>
                             <select name="" id="" class="custom-select" onchange="window.location.href=this.value;">
                                 <option value="" selected disabled>Action</option>
-                                <option value=" {{route('machine.show',$machine->id)}} ">Details</option>
-                                <option value=" {{route('machine.edit',$machine->id)}} ">Modifier</option>
-                                <option value=" {{url('/machine/remove/'.$machine->id)}} ">Supprime</option>
+                                <option value=" {{route('peronnel.show',$person->id)}} ">Details</option>
+                                <option value=" {{route('personnel.edit',$person->id)}} ">Modifier</option>
+                                <option value=" {{url('/personnel/remove/'.$person->id)}} ">Supprime</option>
                             </select>
                         </td>
                     </tr>
