@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Machine;
 use App\Models\Service;
+use App\Models\Personnel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,8 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(1)->create();
-        Service::factory(5)->create();
-        // Machine::factory(20)->create();
+        User::factory(25)->create();
+        // Service::factory(5)->create();
+        // Personnel::factory(50)->create();
     }
 }
