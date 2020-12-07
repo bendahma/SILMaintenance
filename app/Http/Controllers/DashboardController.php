@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Alert;
 use App\Models\Machine;
+use App\Models\Personnel;
 
 class DashboardController extends Controller
 {
@@ -32,8 +33,11 @@ class DashboardController extends Controller
             $q->where('panneRegle',false);
         })->count();
 
+        $nbrPersonnels = Personnel::count();
+
         return view('admin.index')
                 ->with('nbrMachines',$nbrMachines)
-                ->with('nbrMachineEnPanne',$nbrMachineEnPanne);
+                ->with('nbrMachineEnPanne',$nbrMachineEnPanne)
+                ->with('nbrPersonnels',$nbrPersonnels);
     }
 }

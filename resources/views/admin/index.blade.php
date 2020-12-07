@@ -10,6 +10,23 @@
       <!-- Content Row -->
       <div class="row">
 
+        <!-- Nombres des personnes -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-secondary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nombres Des Personnels</div>
+                  <div class="h3 mb-0 font-weight-bold text-gray-800">{{$nbrPersonnels}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-users fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Nombres des machine -->
         <div class="col-xl-3 col-md-6 mb-4">
           <div class="card border-primary shadow h-100 py-2">
@@ -46,6 +63,8 @@
         </div>
 
       </div>
+
+
 
       <!-- Content Row -->
 @endsection
