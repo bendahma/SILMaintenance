@@ -9,13 +9,13 @@
 
         <div class="row mt-4">
              <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-primary shadow h-100 py-2">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text font-weight-bold text--primary text-uppercase mb-1">Nombre Des Pannes</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$machine->NbrPanne($machine->id)}}</div>
+                    <div class="text-xs font-weight-bold text--primary text-uppercase mb-1">Nombre des pannes (Mensuelle)</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
                   </div>
                   <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -24,15 +24,13 @@
               </div>
             </div>
           </div>
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-success shadow h-100 py-2">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text font-weight-bold text--primary text-uppercase mb-1">MTBF</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{gmdate("H:i:s", $machine->mtbf($machine->id)*60 )}}</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    </div>
+                    <div class="text-xs font-weight-bold text--primary text-uppercase mb-1">Nombre des pannes (Annuel)</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
                   </div>
                   <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -45,8 +43,9 @@
         <div class="col"></div>  
         </div>
 
-        <div class="card-card-default shadow">
-            
+        <div class="card-card-default">
+            <div class="card-header">
+            </div>
             <div class="card-body bg-white rounded ">
                 <form action="{{ route('machine.store') }}" method="POST">
                     @csrf
@@ -67,7 +66,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <label for="">Marque</label>
-                            <input type="text" readonly name="mark" id="" class="form-control" placeholder="Marque" value="{{ isset($machine) ? $machine->mark->mark : '' }}">
+                            <input type="text" readonly name="mark" id="" class="form-control" placeholder="Marque" value="{{ isset($machine) ? $machine->mark : '' }}">
                         </div>
                         <div class="col">
                             <label for="">matriel</label>

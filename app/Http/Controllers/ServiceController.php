@@ -13,7 +13,7 @@ class ServiceController extends Controller
     
     public function index()
     {
-        $services = Service::with('personnels')->get();
+        $services = Service::all();
         return view('service.index',compact('services'));
     }
 
@@ -44,7 +44,9 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::find($id);
-        return view('service.create',compact('service'));
+        $personnels = Personnel::all();
+
+        return view('service.create',compact(['service','personnels']));
     }
 
     

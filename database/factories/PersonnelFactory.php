@@ -23,7 +23,10 @@ class PersonnelFactory extends Factory
     {
 
         return [
-            //
+            'fonction' => $this->faker->word,
+            'titre' => $this->faker->word,
+            'user_id' => 10,
+            'service_id' => 1,
         ];
     }
 }

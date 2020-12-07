@@ -7,7 +7,7 @@
             <h3 class="font-weight-bold">Lists Des Personnels</h3>
         </div>
 
-        <table class="table table-bordered bg-white" id="myTable">
+        <table class="table table-bordered bg-white shadow" id="myTable">
             <thead>
                 <tr>
                     <td>N°</td>
@@ -27,11 +27,11 @@
                         <td> {{$person->user->dateNaissance}} </td>
                         <td> {{$person->titre}} </td>
                         <td> {{$person->fonction}} </td>
-                        <td> </td>
+                        <td> {{$person->service->nom}} </td>
                         <td>
                             <select name="" id="" class="custom-select" onchange="window.location.href=this.value;">
                                 <option value="" selected disabled>Action</option>
-                                <option value=" {{route('peronnel.show',$person->id)}} ">Details</option>
+                                <option value=" {{route('personnel.show',$person->id)}} ">Details</option>
                                 <option value=" {{route('personnel.edit',$person->id)}} ">Modifier</option>
                                 <option value=" {{url('/personnel/remove/'.$person->id)}} ">Supprime</option>
                             </select>

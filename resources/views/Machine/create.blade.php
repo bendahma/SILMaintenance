@@ -32,8 +32,14 @@
                     <div class="row mt-3">
                         <div class="col">
                             <label for="">Marque</label>
-                            <input type="text" name="mark" id="" class="form-control" placeholder="Marque" value="{{ isset($machine) ? $machine->mark : '' }}">
-                        </div>
+                            <select name="mark_id" id="" class="custom-select">
+                                <option value="" selected disabled>Machine</option>
+                                @foreach ($marks as $mark)
+                                    <option value="{{$mark->id}}" {{ isset($machine) && $machine->mark_id == $mark->id ? 'selected' : '' }}>{{$mark->mark}}</option>
+                                @endforeach
+                              
+                            </select>                       
+                         </div>
                         <div class="col">
                             <label for="">matriel</label>
                             <input type="text" name="matriel" id="" class="form-control" placeholder="Matriel" value="{{ isset($machine) ? $machine->matriel : '' }}">

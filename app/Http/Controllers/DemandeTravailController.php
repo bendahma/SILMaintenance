@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Machine;
+use App\Models\Personnel;
+use App\Models\Mark;
+use App\Models\DemandeTravail;
+use App\Models\Panne;
+
+use Alert;
+use DB;
 class DemandeTravailController extends Controller
 {
     /**
@@ -13,14 +21,19 @@ class DemandeTravailController extends Controller
      */
     public function index()
     {
-        //
+        $machines = Machine::machineNotEnPanne();
+        return view('DemandeTravail.index')->with('machines',$machines);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function NewDemandeTravail($id){
+        $machine = Machine::find($id);
+        $personnels = Personnel::all();
+        return view('DemandeTravail.create')
+                    ->with('machine',$machine)
+                    ->with('personnels',$personnels);
+    }
+
+    
     public function create()
     {
         return view('DemandeTravail.create');
@@ -34,8 +47,22 @@ class DemandeTravailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $demandeTravail = DemandeTravail::create($request->except(['mark_id']));
+
+        $panne = Panne::create([
+            'demande_travail_id' => $demandeTravail->id,
+            'machine_id' => $request->machine_id,
+            'mark_id' => $request->mark_id,
+        ]);
+
+        Alert::success('Success','Une demande de travail à été ajouté avec success');
+
+        return redirect(route('demandeTravail.index'));
     }
+
+
+    
+
 
     /**
      * Display the specified resource.
@@ -68,7 +95,10 @@ class DemandeTravailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $demande = DemandeTravail::find($id);
+        $demande->update($request->only(['dateEntre','description','declarePar']));
+        Alert::success('Success','La panne à été mettre à jours avec success');
+        return redirect(route('panne.index'));
     }
 
     /**

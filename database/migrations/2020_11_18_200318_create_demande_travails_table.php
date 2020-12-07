@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMachinePanneTable extends Migration
+class CreateDemandeTravailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateMachinePanneTable extends Migration
      */
     public function up()
     {
-        Schema::create('machine_panne', function (Blueprint $table) {
+        Schema::create('demande_travails', function (Blueprint $table) {
             $table->id();
             $table->foreignId('machine_id')->constrained();
-            $table->foreignId('panne_id')->constrained();
+            $table->dateTime('dateEntre');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('declarePar');
+            $table->foreign('declarePar')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateMachinePanneTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('machine_panne');
+        Schema::dropIfExists('demande_travails');
     }
 }

@@ -15,9 +15,15 @@ class CreatePannesTable extends Migration
     {
         Schema::create('pannes', function (Blueprint $table) {
             $table->id();
-            $table->text('descriptionPanne');
-            $table->dateTime('dateEntre');
-            $table->dateTime('dateSortie');
+            $table->foreignId('demande_travail_id')->constrained();
+            $table->foreignId('machine_id')->constrained();
+            $table->foreignId('mark_id')->constrained();
+            $table->dateTime('dateSortie')->nullable();
+            $table->unsignedBigInteger('reglePar')->nullable();
+            $table->foreign('reglePar')->references('id')->on('users');
+            $table->boolean('panneRegle')->default(false);
+            $table->text('travailFait')->nullable();
+            $table->integer('dureeRegelementMinute')->nullable();
             $table->timestamps();
         });
     }

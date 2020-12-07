@@ -7,9 +7,9 @@
                 <h4>{{ isset($personnel) ? 'Mettre à jours les informations d\' une personne' : 'Ajouté une Personne'}}</h4>
             </div>
             <div class="card-body bg-white rounded ">
-                <form action=" {{ isset($machine) ? route('machine.update',$machine->id) : route('machine.store') }}" method="POST">
+                <form action=" {{ isset($personnel) ? route('personnel.update',$personnel->id) : route('personnel.store') }}" method="POST">
                     @csrf
-                    @if (isset($machine))
+                    @if (isset($personnel))
                     @method('PATCH')
                     @endif
                     <div class="row">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="col">
                             <label for="">Prenom</label>
-                            <input type="text" name="fonction" id="" class="form-control" placeholder="Prenom" value="{{ isset($personnel) ? $personnel->user->prenom : '' }}">
+                            <input type="text" name="prenom" id="" class="form-control" placeholder="Prenom" value="{{ isset($personnel) ? $personnel->user->prenom : '' }}">
                         </div>
                         <div class="col">
                             <label for="">Date de naissance</label>
@@ -43,14 +43,15 @@
                     <div class="row mt-4">
                         <div class="col">
                             <label for="">Service</label>
-                            <select name="machineType" id="" class="custom-select">
+                            <select name="service_id" id="" class="custom-select">
                                 <option value="" selected disabled>Service</option>
                                 @foreach ($services as $service)
-                                    <option value=" {{$service->id}} "> {{$service->nom}} </option>
+                                    <option value=" {{$service->id}} " {{isset($personnel) && $personnel->service_id == $service->id ? 'selected' : ''}}> {{$service->nom}} </option>
                                 @endforeach
                             </select>
-                            <small> <input type="checkbox" name="chefService" id=""> Chef de service</small>
-
+                            @if (!!isset($personnel))
+                                <small> <input type="checkbox" name="chefService" id=""> Chef de service</small>
+                            @endif
                         </div>
                         <div class="col">
                             <label for="">Titre</label>

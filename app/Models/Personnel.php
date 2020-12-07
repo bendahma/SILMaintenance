@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Service;
+use App\Models\HeureSupplementaire;
 
 class Personnel extends Model
 {
@@ -20,5 +21,9 @@ class Personnel extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function heuresupplementaires(){
+        return $this->hasMany(HeureSupplementaire::class);
     }
 }
