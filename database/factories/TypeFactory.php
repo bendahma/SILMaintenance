@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Mark;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class MarkFactory extends Factory
+class TypeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Mark::class;
+    protected $model = Type::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class MarkFactory extends Factory
     public function definition()
     {
         return [
-            "mark" => $this->faker->word
+            //
         ];
     }
 }

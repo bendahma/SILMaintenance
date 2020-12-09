@@ -23,10 +23,10 @@ class MachineFactory extends Factory
     public function definition()
     {
         return [
-            'matricule' => $this->faker->randomNumber(NULL,false),
-            'mark_id' => 1,
-            'matriel' => 'Example',
-            'machineType' => 'Engin',
+            'immatriculation' => $this->faker->unique()->randomNumber(NULL,false),
+            'numeroSerie' => $this->faker->unique()->randomNumber(NULL,false),
+            'type_id' => 1,
+            'category_id' => 1,
         ];
     }
 }

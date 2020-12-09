@@ -1,7 +1,7 @@
 @extends('layouts.adminTemplate')
 
 @section('content')
-    <div class="">
+    <div class="container">
         <div class="card-card-default">
             <div class="card-header">
                 <h4> {{isset($machine) ? 'Mettre à jours les informations du Machine' : 'Ajouté Nouveau Machine'}}</h4>
@@ -14,36 +14,37 @@
                     @endif
                     <div class="row">
                         <div class="col">
-                            <label for="">Type de machine</label>
-                            <select name="machineType" id="" class="custom-select">
-                                <option value="" selected disabled>Machine</option>
-                                <option value="engin" {{ isset($machine) && $machine->machineType == 'engin' ? 'selected' : '' }}>Engin</option>
-                                <option value="camion" {{ isset($machine) && $machine->machineType == 'camion' ? 'selected' : '' }}>Camion</option>
-                                <option value="leger" {{ isset($machine) && $machine->machineType == 'leger' ? 'selected' : '' }}>Leger</option>
-                            
-                            </select>
+                            <label for="">Immatriculation</label>
+                            <input type="text" name="immatriculation" id="" class="form-control" placeholder="Immatriculation" value="{{ isset($machine) ? $machine->immatriculation : '' }}">
+                            <small>La matricule d'une machine doit etre unique</small>
                         </div>
                         <div class="col">
-                            <label for="">Matricule</label>
-                            <input type="text" name="matricule" id="" class="form-control" placeholder="Matricule" value="{{ isset($machine) ? $machine->matricule : '' }}">
+                            <label for="">Numero Serie</label>
+                            <input type="text" name="numeroSerie" id="" class="form-control" placeholder="Numero Serie" value="{{ isset($machine) ? $machine->numeroSerie : '' }}">
                             <small>La matricule d'une machine doit etre unique</small>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <label for="">Marque</label>
-                            <select name="mark_id" id="" class="custom-select">
+                            <label for="">Type du Machine</label>
+                            <select name="type_id" id="" class="custom-select">
                                 <option value="" selected disabled>Machine</option>
-                                @foreach ($marks as $mark)
-                                    <option value="{{$mark->id}}" {{ isset($machine) && $machine->mark_id == $mark->id ? 'selected' : '' }}>{{$mark->mark}}</option>
+                                @foreach ($types as $type)
+                                    <option value="{{$type->id}}" {{ isset($machine) && $machine->type_id == $type->id ? 'selected' : '' }}>{{$type->name}}</option>
                                 @endforeach
                               
                             </select>                       
                          </div>
                         <div class="col">
-                            <label for="">matriel</label>
-                            <input type="text" name="matriel" id="" class="form-control" placeholder="Matriel" value="{{ isset($machine) ? $machine->matriel : '' }}">
-                        </div>
+                            <label for="">Catégory du Machine</label>
+                            <select name="category_id" id="" class="custom-select">
+                                <option value="" selected disabled>Machine</option>
+                                @foreach ($categories as $c)
+                                    <option value="{{$c->id}}" {{ isset($machine) && $machine->category_id == $c->id ? 'selected' : '' }}>{{$c->name}}</option>
+                                @endforeach
+                              
+                            </select>                       
+                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-lg-12">

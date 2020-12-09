@@ -11,9 +11,10 @@
             <thead>
                 <tr>
                     <td>N°</td>
-                    <td>Matricule</td>
+                    <td>Immatriculation</td>
+                    <td>Numero Serie</td>
                     <td>Type</td>
-                    <td>Marque</td>
+                    <td>Category</td>
                     <td>Action</td>
                 </tr>
             </thead>
@@ -21,9 +22,11 @@
                 @foreach ($machines as $key => $machine)
                     <tr>
                         <td> {{$key = $key+1}} </td>
-                        <td> {{$machine->matricule}} </td>
-                        <td> {{$machine->machineType}} </td>
-                        <td>  {{$machine->mark->mark}}  </td>
+                        <td> {{$machine->immatriculation}} </td>
+                        <td> {{$machine->numeroSerie}} </td>
+                        <td> {{$machine->category->type->name}} </td> 
+                        <td> {{$machine->category->name}} </td> 
+                       
                         <td>
                             <select name="" id="" class="custom-select" onchange="window.location.href=this.value;">
                                 <option value="" selected disabled>Action</option>

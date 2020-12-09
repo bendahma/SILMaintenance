@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Mark;
 use App\Models\Panne;
 use App\Models\DemandeTravail;
+use App\Models\Type;
+use App\Models\Category;
 use DB;
 class Machine extends Model
 {
@@ -25,6 +27,10 @@ class Machine extends Model
 
     public function demandeTravail(){
         return $this->hasMany(demandeTravail::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
     static public function machineNotEnPanne(){

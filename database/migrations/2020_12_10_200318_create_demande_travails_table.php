@@ -15,6 +15,7 @@ class CreateDemandeTravailsTable extends Migration
     {
         Schema::create('demande_travails', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('numeroDemande')->unique()->nullable();
             $table->foreignId('machine_id')->constrained();
             $table->dateTime('dateEntre');
             $table->text('description')->nullable();

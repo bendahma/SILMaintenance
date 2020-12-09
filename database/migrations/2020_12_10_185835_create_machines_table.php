@@ -15,10 +15,10 @@ class CreateMachinesTable extends Migration
     {
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
-            $table->string('matricule')->unique();
-            $table->foreignId('mark_id')->constrained();
-            $table->string('matriel');
-            $table->enum('machineType',['engin','camion','leger']);
+            $table->string('immatriculation')->unique();
+            $table->string('numeroSerie')->nullable();
+            $table->foreignId('type_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->text('obs')->nullable();
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMachinePanneTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateMachinePanneTable extends Migration
      */
     public function up()
     {
-        Schema::create('machine_panne', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('machine_id')->constrained();
-            $table->foreignId('panne_id')->constrained();
+            $table->string('name');
+            $table->string('imageUrl')->default('images/defaultImage.jpg');
+            $table->foreignId('type_id')->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateMachinePanneTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('machine_panne');
+        Schema::dropIfExists('categories');
     }
 }

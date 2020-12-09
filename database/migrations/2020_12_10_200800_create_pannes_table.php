@@ -17,7 +17,7 @@ class CreatePannesTable extends Migration
             $table->id();
             $table->foreignId('demande_travail_id')->constrained();
             $table->foreignId('machine_id')->constrained();
-            $table->foreignId('mark_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->dateTime('dateSortie')->nullable();
             $table->unsignedBigInteger('reglePar')->nullable();
             $table->foreign('reglePar')->references('id')->on('users');

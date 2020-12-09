@@ -79,11 +79,11 @@
         matériels
       </div>
       
-      <!-- Mark -->
+      <!-- Ctagories -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('marque.index')}}" >
+        <a class="nav-link collapsed" href="{{route('type.index')}}" >
           <i class="fas fa-truck"></i>
-          <span>Gestion Des Marques</span>
+          <span>Gestion Des Categories</span>
         </a>  
       </li>
       

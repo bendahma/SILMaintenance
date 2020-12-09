@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Machine;
-use App\Models\Mark;
+use App\Models\Type;
+use App\Models\Category;
 
 use Alert;
 class MachineController extends Controller
@@ -17,8 +18,11 @@ class MachineController extends Controller
 
     public function create()
     {
-        $marks = Mark::all();
-        return view('Machine.create')->with('marks',$marks);
+        $types = Type::all();
+        $categories = Category::all();
+        return view('Machine.create')
+                        ->with('types',$types)
+                        ->with('categories',$categories);
     }
 
     public function store(Request $request)
@@ -32,6 +36,11 @@ class MachineController extends Controller
     public function show(Machine $machine)
     {
         return view('machine.details', compact('machine'));
+    }
+
+    public function MachineList($typeId,$category_id){
+        $machines = Machine::where('type_id',$typeId)->where('category_id',$category_id)->get();
+        return view('machine.index',compact('machines'));
     }
 
     public function edit(Machine $machine)
