@@ -8,6 +8,8 @@ use App\Models\Machine;
 use App\Models\Personnel;
 use App\Models\User;
 use App\Models\DemandeTravail;
+use App\Models\PanneStatistic;
+
 use DateTime;
 use Alert;
 
@@ -118,25 +120,54 @@ class PanneController extends Controller
     public function update(Request $request, $id)
     {
 
+//https://stackoverflow.com/questions/51308503/php-carbon-date-difference-with-only-working-days
+// https://gist.github.com/quawn/8503445
 
+        $dateEntre = $request->dateEntre; // 2020-12-12 17:00:00        
+        $dtSortie = new DateTime($request->dateSortie); // date: 2020-12-12 18:00:00.0 UTC (+00:00)
+        $timeSortie = $dtSortie->format('Y-m-d H:i:s'); // 2020-12-12 18:00:00
+        $datEntre = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$dateEntre);  // Carbon/Carbon object
+        $datSortie = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$timeSortie); // Carbon/Carbon object
+        $dureeRegelementInDays = $datEntre->diffInDays($datSortie) * 24;
+        $dureeRegelementInMinutes = $datEntre->diffInMinutes($datSortie);
 
-        $dateEntre = $request->dateEntre;
-        $dateSortie = $request->dateSortie;
-        $dtSortie = new DateTime($dateSortie);
-        $timeSortie = $dtSortie->format('Y-m-d H:i:s');
+        $panne = Panne::find($id);
         
-        $datEntre = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$request->dateEntre); 
-        $datSortie = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$timeSortie);
-        $dureeRegelement = $datEntre->diffInMinutes($datSortie);
-
-        $panne = Panne::find($id)->update([
+        $panne->update([
             'dateSortie' => $request->dateSortie,
             'reglePar' => $request->reglePar,
             'panneRegle' => true,
             'travailFait' => $request->travailFait,
-            'dureeRegelementMinute' => $dureeRegelement,
-            'mark_id' => $request->mark_id,
+            'category_id' => $request->category_id,
+            'dureeRegelementMinute' => $dureeRegelementInMinutes,
+
         ]);
+        
+        $panneStat = PanneStatistic::where('anneePanne', $request->anneePanne)
+                                        ->where('moisPanne',$request->moisPanne)
+                                        ->where('machine_id',$panne->machine_id)
+                                        ->first();
+        
+        if($panneStat != null){
+            $oldPanneDuration = $panneStat->dureeRegelementInMinutes;
+            $oldPanneNbr = $panneStat->nbrPanne;
+            $newPanneDuration = $oldPanneDuration + $dureeRegelementInMinutes ;
+            $newPanneNbr = $oldPanneNbr + 1;
+            $panneStat->update([
+                'dureeRegelementInMinutes' => $newPanneDuration,
+                'nbrPanne' => $newPanneNbr,
+            ]);
+        }else{
+            $panneStat = PanneStatistic::create([
+                'panne_id' => $panne->id,
+                'machine_id' => $panne->machine_id,
+                'category_id' => $panne->category_id,
+                'anneePanne' => $request->anneePanne,
+                'moisPanne' => $request->moisPanne,
+                'dureeRegelementInMinutes' => $dureeRegelementInMinutes,
+                'nbrPanne' => 1,
+            ]);
+        }
 
         Alert::success('Success','Panne réglé avec success');
 

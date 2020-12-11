@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Machine;
 use App\Models\Type;
 use App\Models\Category;
+use App\Models\Panne;
+use App\Models\DemandeTravail;
 
 use Alert;
 class MachineController extends Controller
 {
+
     public function index()
     {
         $machines = Machine::all();
@@ -45,14 +48,14 @@ class MachineController extends Controller
 
     public function edit(Machine $machine)
     {
-        $marks = Mark::all();
-        return view('machine.create', compact(['machine','marks']));
+        $categories = Category::all();
+        return view('machine.create', compact(['machine','categories']));
 
     }
 
     public function update(Request $request, Machine $machine)
     {
-        $machine->update($request->only(['matricule','mark_id','matriel','machineType','obs']));
+        $machine->update($request->only(['immatriculation','numeroSerie','type_id','category_id','obs']));
         Alert::success('Success','La machine à été mis à jours avec success');
         return redirect(route('machine.index'));
     }
@@ -64,11 +67,11 @@ class MachineController extends Controller
         return redirect(route('machine.index'));
     }
 
-    public function createMark(){
-        return view('machine.addMark');
-    }
+    public function panneList(Machine $machine){
+        $pannes = Panne::where('machine_id',$machine->id)->with('demandetravail')->get();
+        return view('machine.panneList')
+                ->with('machine',$machine)
+                ->with('pannes',$pannes);
 
-    public function storeMark(Request $request){
-        //
     }
 }

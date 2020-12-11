@@ -11,9 +11,9 @@
             <thead>
                 <tr>
                     <td>N°</td>
-                    <td>Matricule</td>
-                    <td>Type</td>
-                    <td>Marque</td>
+                    <td>Model</td>
+                    <td>immatriculation</td>
+                    <td>Category</td>
                     <td>Action</td>
                     <td>Panne Réglé</td>
                 </tr>
@@ -22,14 +22,14 @@
                 @foreach ($machines as $key => $machine)
                     <tr>
                         <td> {{$key = $key+1}} </td>
-                        <td> {{$machine->matricule}} </td>
-                        <td> {{$machine->machineType}} </td>
-                        <td> {{$machine->mark->mark}} </td>
+                        <td> {{$machine->model}} </td>
+                        <td> {{$machine->immatriculation}} </td>
+                        <td> {{$machine->category->name}} </td>
                         <td> 
                                 <select name="" id="" class="custom-select" onchange="window.location.href=this.value;">
                                     <option value="" selected disabled>Action</option>
-                                    <option value=" {{route('machine.detailsPanne',$machine->id)}} ">Details Du Panne</option>
-                                    <option value=" {{route('machine.editPanne',$machine->id)}} ">Modifier La Panne</option>
+                                    <option value=" {{route('machines.detailsPanne',$machine->id)}} ">Details Du Panne</option>
+                                    <option value=" {{route('machines.editPanne',$machine->id)}} ">Modifier La Panne</option>
                                 </select>
                         </td>        
 

@@ -14,25 +14,22 @@
                     @method('PATCH')
                     <div class="row">
                         <div class="col">
-                            <label for="">Type de machine</label>
-                            <select name="machineType" id="" class="custom-select">
-                                <option value="engin" {{ isset($machine) && $machine->machineType == 'engin' ? 'selected' : '' }}>Engin</option>
-                                <option value="camion" {{ isset($machine) && $machine->machineType == 'camion' ? 'selected' : '' }}>Camion</option>
-                                <option value="leger" {{ isset($machine) && $machine->machineType == 'leger' ? 'selected' : '' }}>Leger</option>
-                            </select>
+                            <label for="">Model</label>
+                            <input type="text" readonly name="model" id="" class="form-control"  value="{{ isset($machine) ? $machine->model : '' }}">
                         </div>
                         <div class="col">
-                            <label for="">Matricule</label>
-                            <input type="text" readonly  name="matricule" id="" class="form-control" placeholder="Matricule" value="{{ isset($machine) ? $machine->matricule : '' }}">
+                            <label for="">Immatriculation</label>
+                            <input type="text" readonly name="immatriculation" id="" class="form-control"  value="{{ isset($machine) ? $machine->immatriculation : '' }}">
+                        </div>
+                        
+                        <div class="col">
+                            <label for="">Type</label>
+                            <input type="text" readonly name="type_id" id="" class="form-control" value="{{ isset($machine) ? $machine->category->type->name : '' }}">
                         </div>
                         <div class="col">
-                            <label for="">Marque</label>
-                            <input type="text" readonly name="" id="" class="form-control" placeholder="Marque" value="{{ isset($machine) ? $machine->mark->mark : '' }}">
-                            <input type="hidden" name="mark_id" value="{{ $machine->mark->id }}">
-                        </div>
-                        <div class="col">
-                            <label for="">matriel</label>
-                            <input type="text" readonly name="matriel" id="" class="form-control" placeholder="Matriel" value="{{ isset($machine) ? $machine->matriel : '' }}">
+                            <label for="">Category</label>
+                            <input type="text" readonly name="" id="" class="form-control" value="{{ isset($machine) ? $machine->category->name : '' }}">
+                            <input type="hidden" name="category_id" value="{{ isset($machine) ? $machine->category->id : '' }}">
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -59,6 +56,8 @@
                         <div class="col">
                             <label for="">Date de sortie</label>
                             <input type="datetime-local" class="form-control" name="dateSortie" >
+                            <input type="hidden" name="anneePanne" value=" {{date('Y')}} ">
+                            <input type="hidden" name="moisPanne" value=" {{date('m')}} ">
                         </div>
                     </div>
                     <div class="row mt-3">

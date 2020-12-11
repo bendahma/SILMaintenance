@@ -15,7 +15,9 @@
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text font-weight-bold text--primary text-uppercase mb-1">Nombre Des Pannes</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$machine->NbrPanne($machine->id)}}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href=" {{route('machines.panneList',$machine->id)}} ">{{$machine->NbrPanne($machine->id)}}</a>
+                      </div>
                   </div>
                   <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -48,32 +50,70 @@
         <div class="card-card-default shadow">
             
             <div class="card-body bg-white rounded ">
-                <form action="{{ route('machine.store') }}" method="POST">
-                    @csrf
+                <form action="">
+                    
                     <div class="row">
                         <div class="col">
                             <label for="">Type de machine</label>
-                            <select name="machineType" id="" class="custom-select">
-                                <option value="engin" {{ isset($machine) && $machine->machineType == 'engin' ? 'selected' : '' }}>Engin</option>
-                                <option value="camion" {{ isset($machine) && $machine->machineType == 'camion' ? 'selected' : '' }}>Camion</option>
-                                <option value="leger" {{ isset($machine) && $machine->machineType == 'leger' ? 'selected' : '' }}>Leger</option>
-                            </select>
+                            <input type="text" readonly value=" {{$machine->category->type->name}}" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="">Matricule</label>
-                            <input type="text" readonly name="matricule" id="" class="form-control" placeholder="Matricule" value="{{ isset($machine) ? $machine->matricule : '' }}">
+                            <label for="">Category du machine</label>
+                            <input type="text" name="" readonly id="" value=" {{$machine->category->name}} " class="form-control">
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <label for="">Marque</label>
-                            <input type="text" readonly name="mark" id="" class="form-control" placeholder="Marque" value="{{ isset($machine) ? $machine->mark->mark : '' }}">
-                        </div>
-                        <div class="col">
-                            <label for="">matriel</label>
-                            <input type="text" readonly name="matriel" id="" class="form-control" placeholder="Matriel" value="{{ isset($machine) ? $machine->matriel : '' }}">
-                        </div>
-                    </div>
+                  
+                  <div class="row mt-3">
+                      <div class="col">
+                          <label for="">Model</label>
+                          <input type="text" readonly name="model" id="" class="form-control" placeholder="Model" value="{{ isset($machine) ? $machine->model : '' }}">
+                      </div>
+                      <div class="col">
+                          <label for="">Immatriculation</label>
+                          <input type="text" name="immatriculation" readonly id="" class="form-control" placeholder="Immatriculation" value="{{ isset($machine) ? $machine->immatriculation : '' }}">
+                      </div>
+                      <div class="col">
+                          <label for="">Date mise en service</label>
+                          <input type="date" name="dateMiseEnService" readonly id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->dateMiseEnService : '' }}">
+                      </div>
+                      
+                  </div>
+                   
+                  @if ($machine->type_id == 1)
+                        <div id="showEnginFields">
+                          <div class="row mt-3">
+                              <div class="col">
+                                  <label for="">Numero Serie</label>
+                                  <input type="text"  name="numeroSerie" id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->numeroSerie : '' }}">
+                              </div>
+                              <div class="col">
+                                  <label for="">Type</label>
+                                  <input type="text" readonly name="typeField" id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->typeField : '' }}">
+                              </div>
+                          </div>
+                          <div class="row mt-3">
+                              <div class="col">
+                                  <label for="">Marque Moteur</label>
+                                  <input type="text" readonly name="markMoteur" id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->markMoteur : '' }}">
+                              </div>
+                              <div class="col">
+                                  <label for="">Type Moteur</label>
+                                  <input type="text" readonly  name="typeMoteur" id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->typeMoteur : '' }}">
+                              </div>
+                          </div>
+                          <div class="row mt-3">
+                              <div class="col">
+                                  <label for="">Marque Transmission</label>
+                                  <input type="text" readonly name="markTransmission" id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->markTransmission : '' }}">
+                              </div>
+                              <div class="col">
+                                  <label for="">Type Transmission</label>
+                                  <input type="text" readonly name="typeTransmission" id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->typeTransmission : '' }}">
+                              </div>
+                          </div>
+                      </div>
+                  @endif
+                   
                     <div class="row mt-3">
                         <div class="col-lg-12">
                             <label for="">Observation</label>

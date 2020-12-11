@@ -29,16 +29,17 @@ Route::middleware(['auth'])->group(function(){
     })->name('type.index');
 
     // Machine Routes
-    Route::prefix('machine/')->group(function(){
-        Route::name('machine.')->group(function(){
+    Route::prefix('machines/')->group(function(){
+        Route::name('machines.')->group(function(){
             Route::get('{TypeId}/{CategoryId}',[MachineController::class,'MachineList'])->name('machineList');
             Route::get('remove/{id}',[MachineController::class,'remove'])->name('remove');
-            Route::get('mark/add',[MachineController::class,'createMark'])->name('addNewMark');
-            Route::post('mark',[MachineController::class,'storeMark'])->name('saveNewMark');
             Route::get('panne/detailsPanne/{id}',[PanneController::class,'detailsPanne'])->name('detailsPanne');
             Route::get('panne/editPanne/{id}',[PanneController::class,'editPanne'])->name('editPanne');
         });
     });
+
+    Route::get('panne/{machine}/panneList',[MachineController::class,'panneList'])->name('machines.panneList');
+
 
     // Panne Routes
     Route::prefix('panne/')->group(function(){
@@ -70,17 +71,16 @@ Route::middleware(['auth'])->group(function(){
         });
     });
 
-    Route::prefix('category/')->group(function(){
-        Route::name('category.')->group(function(){
-            Route::get('{id}',[CategoryController::class,'index'])->name('index');
-        });
-    });
+    Route::get('category/{id}',[CategoryController::class,'listCatgories'])->name('category.listCatgories');
+    Route::get('category/{id}/create',[CategoryController::class,'create'])->name('category.create');
+
 
     // Resources Routes
     Route::resource('/service',ServiceController::class);
     Route::resource('/personnel',PersonnelController::class);
     Route::resource('/panne',PanneController::class);
-   
+    Route::resource('/category',CategoryController::class);
+
     Route::resource('/machine',MachineController::class);
     Route::resource('/demandeTravail',DemandeTravailController::class);
     Route::resource('/marque',MarkController::class);

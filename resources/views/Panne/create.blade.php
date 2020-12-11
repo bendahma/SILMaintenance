@@ -20,11 +20,11 @@
                         </div>
                         <div class="col">
                             <label for="">Type du machine</label>
-                            <input type="text" readonly class="form-control" value= {{$machine->machineType}} >
+                            <input type="text" readonly class="form-control" value= {{$machine->category->type->name}} >
                         </div>
                         <div class="col">
-                            <label for="">Marque du machine</label>
-                            <input type="text" readonly class="form-control" value= {{$machine->mark->mark}} >
+                            <label for="">Category du machine</label>
+                            <input type="text" readonly class="form-control" value= {{$machine->category->name}} >
                         </div>
                         
                     </div>

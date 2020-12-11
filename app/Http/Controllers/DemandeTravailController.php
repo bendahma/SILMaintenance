@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Machine;
 use App\Models\Personnel;
-use App\Models\Mark;
+use App\Models\Category;
 use App\Models\DemandeTravail;
 use App\Models\Panne;
 
@@ -47,12 +47,16 @@ class DemandeTravailController extends Controller
      */
     public function store(Request $request)
     {
-        $demandeTravail = DemandeTravail::create($request->except(['mark_id']));
+        $demandeTravail = DemandeTravail::create($request->except(['category_id']));
 
         $panne = Panne::create([
             'demande_travail_id' => $demandeTravail->id,
             'machine_id' => $request->machine_id,
-            'mark_id' => $request->mark_id,
+            'category_id' => $request->category_id,
+        ]);
+
+        $demandeTravail->update([
+            'panne_id' => $panne->id
         ]);
 
         Alert::success('Success','Une demande de travail à été ajouté avec success');

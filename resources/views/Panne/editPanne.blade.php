@@ -13,25 +13,22 @@
                     @csrf
                     @method('PATCH')
                     <div class="row">
+                        
                         <div class="col">
-                            <label for="">Type de machine</label>
-                            <select name="machineType" id="" class="custom-select">
-                                <option value="engin" {{ isset($machine) && $machine->machineType == 'engin' ? 'selected' : '' }}>Engin</option>
-                                <option value="camion" {{ isset($machine) && $machine->machineType == 'camion' ? 'selected' : '' }}>Camion</option>
-                                <option value="leger" {{ isset($machine) && $machine->machineType == 'leger' ? 'selected' : '' }}>Leger</option>
-                            </select>
+                            <label for="">Immatriculation</label>
+                            <input type="text" readonly name="" id="" class="form-control"  value="{{ isset($machine) ? $machine->immatriculation : '' }}">
                         </div>
                         <div class="col">
-                            <label for="">Matricule</label>
-                            <input type="text" readonly name="matricule" id="" class="form-control" placeholder="Matricule" value="{{ isset($machine) ? $machine->matricule : '' }}">
+                            <label for="">N° Serie</label>
+                            <input type="text" readonly name="" id="" class="form-control"  value="{{ isset($machine) ? $machine->numeroSerie : '' }}">
                         </div>
                         <div class="col">
-                            <label for="">Marque</label>
-                            <input type="text" readonly name="mark" id="" class="form-control" placeholder="Marque" value="{{ isset($machine) ? $machine->mark->mark : '' }}">
+                            <label for="">Type</label>
+                            <input type="text" readonly name="" id="" class="form-control" value="{{ isset($machine) ? $machine->category->type->name : '' }}">
                         </div>
                         <div class="col">
-                            <label for="">matriel</label>
-                            <input type="text" readonly name="matriel" id="" class="form-control" placeholder="Matriel" value="{{ isset($machine) ? $machine->matriel : '' }}">
+                            <label for="">Category</label>
+                            <input type="text" readonly name="" id="" class="form-control" value="{{ isset($machine) ? $machine->category->name : '' }}">
                         </div>
                     </div>
                     <div class="row mt-3">

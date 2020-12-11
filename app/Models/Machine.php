@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Mark;
 use App\Models\Panne;
 use App\Models\DemandeTravail;
 use App\Models\Type;
@@ -16,10 +15,6 @@ class Machine extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    public function mark(){
-        return $this->belongsTo(Mark::class);
-    }
 
     public function pannes(){
         return $this->hasMany(Panne::class);
@@ -32,6 +27,7 @@ class Machine extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+    
 
     static public function machineNotEnPanne(){
 
@@ -43,7 +39,7 @@ class Machine extends Model
 
         foreach ($machineEnPanne as $key => $m) { $data[] = (array)$m->id; }
 
-        $machines = Machine::whereNotIn('id',$data)->with('mark')->get();
+        $machines = Machine::whereNotIn('id',$data)->with('category')->get();
 
         return $machines;
     }

@@ -1,4 +1,4 @@
-<form action="{{route('machine.saveNewMark')}}" method="POST" id="addMarkForm">
+<form action="{{route('machines.saveNewMark')}}" method="POST" id="addMarkForm">
     @csrf
     <div class="modal fade" id="addNewMarkModel" tabindex="-1" role="dialog" aria-labelledby="MenthlyStatModelTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">

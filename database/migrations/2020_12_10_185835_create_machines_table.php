@@ -20,6 +20,13 @@ class CreateMachinesTable extends Migration
             $table->foreignId('type_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->text('obs')->nullable();
+            $table->string('model')->nullable();
+            $table->string('dateMiseEnService')->nullable();
+            $table->string('typeField')->nullable();
+            $table->string('markMoteur')->nullable();
+            $table->string('typeMoteur')->nullable();
+            $table->string('markTransmission')->nullable();
+            $table->string('typeTransmission')->nullable();
             $table->timestamps();
         });
     }

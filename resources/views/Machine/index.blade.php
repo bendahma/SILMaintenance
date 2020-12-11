@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                     <td>N°</td>
+                    <td>Model</td>
                     <td>Immatriculation</td>
                     <td>Numero Serie</td>
                     <td>Type</td>
@@ -22,6 +23,7 @@
                 @foreach ($machines as $key => $machine)
                     <tr>
                         <td> {{$key = $key+1}} </td>
+                        <td> {{$machine->model}} </td>
                         <td> {{$machine->immatriculation}} </td>
                         <td> {{$machine->numeroSerie}} </td>
                         <td> {{$machine->category->type->name}} </td> 

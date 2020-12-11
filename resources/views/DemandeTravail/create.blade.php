@@ -12,22 +12,28 @@
                     <h4>Les informations du machine : </h4>
                     <div class="row">
                         <div class="col">
-                            <label for="">Matricule du machine</label>
-                            <input type="text" readonly class="form-control" value="{{ $machine->matricule }}">
+                            <label for="">Immatriculation</label>
+                            <input type="text" readonly class="form-control" value="{{ $machine->immatriculation }}">
+                        </div>
+                        <div class="col">
+                            <label for="">N° Serie</label>
+                            <input type="text" readonly class="form-control" value="{{ $machine->numeroSerie }}">
                         </div>
                         <div class="col">
                             <label for="">Type du machine</label>
-                            <input type="text" readonly class="form-control" value= {{$machine->machineType}} >
+                            <input type="text" readonly class="form-control" value= {{$machine->category->type->name}} >
                         </div>
                         <div class="col">
-                            <label for="">Marque du machine</label>
-                            <input type="text" readonly class="form-control" value= {{$machine->mark->mark}} >
+                            <label for="">Category du machine</label>
+                            <input type="text" readonly class="form-control" value= {{$machine->category->name}} >
                         </div>
                         <input type="hidden" name="machine_id" value= "{{$machine->id}}">
-                        <input type="hidden" name="mark_id"  value= "{{$machine->mark->id}}" >
+                        <input type="hidden" name="category_id"  value= "{{$machine->category->id}}" >
 
                     </div>
                     <h4  class="mt-4">Details du demande de travail : </h4>
+                    
+                    <input type="text" name="numeroDemande" id="" placeholder="N° Demande de travail" class="form-control col-lg-4 my-3">
 
                     <div class="row">
                         <div class="col">

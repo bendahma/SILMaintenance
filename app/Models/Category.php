@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Type;
 use App\Models\Machine;
+use App\Models\PanneStatistic;
+use App\Models\Panne;
 
 class Category extends Model
 {
@@ -19,5 +21,45 @@ class Category extends Model
 
     public function machine(){
         return $this->hasMany(Machine::class);
+    }
+
+
+    public function MTTR_Monthly($id,$month,$year){
+
+        $panneMonth = PanneStatistic::where('category_id',$id)
+                    ->where('anneePanne',$year)
+                    ->where('moisPanne',$month)
+                    ->first();
+        if($panneMonth == null){
+            return 0;
+        }
+        $sumDureePanne = $panneMonth->dureeRegelementInMinutes;
+        $nbrPanne = $panneMonth->nbrPanne;
+        
+        return $nbrPanne > 0 ? $sumDureePanne / $nbrPanne : 0 ;
+    }
+
+    public function MTTR_Yearly($id,$year){
+        $panneMonth = PanneStatistic::where('category_id',$id)
+                                    ->where('anneePanne',$year)
+                                    ->first();
+        if($panneMonth == null){
+            return 0;
+        }
+        $sumDureePanne = $panneMonth->dureeRegelementInMinutes;
+        $nbrPanne = $panneMonth->nbrPanne;
+
+        return $nbrPanne > 0 ? $sumDureePanne / $nbrPanne : 0 ;
+    }
+
+    public function MTTR_Global($id){
+        $panneMonth = PanneStatistic::where('category_id',$id)->first();
+        if($panneMonth == null){
+        return 0;
+        }
+        $sumDureePanne = $panneMonth->dureeRegelementInMinutes;
+        $nbrPanne = $panneMonth->nbrPanne;
+
+        return $nbrPanne > 0 ? $sumDureePanne / $nbrPanne : 0 ;
     }
 }
