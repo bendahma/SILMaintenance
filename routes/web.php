@@ -35,17 +35,21 @@ Route::middleware(['auth'])->group(function(){
             Route::get('remove/{id}',[MachineController::class,'remove'])->name('remove');
             Route::get('panne/detailsPanne/{id}',[PanneController::class,'detailsPanne'])->name('detailsPanne');
             Route::get('panne/editPanne/{id}',[PanneController::class,'editPanne'])->name('editPanne');
+            Route::get('vidange',[MachineController::class,'vidange'])->name('vidange');
+
         });
     });
 
     Route::get('panne/{machine}/panneList',[MachineController::class,'panneList'])->name('machines.panneList');
-
+    Route::get('vidange/{machine}',[MachineController::class,'editKilometrage'])->name('machine.editkilometrage');
+    Route::patch('vidange/updateKilometrage/',[MachineController::class,'updateKilometrage'])->name('machine.updateKilometrage');
 
     // Panne Routes
     Route::prefix('panne/')->group(function(){
         Route::name('panne.')->group(function(){
             Route::get('machineEnPanne/{machine}',[PanneController::class,'machineEnPanne'])->name('MachineEnPanne');
             Route::get('machineEnPanne/panneRegle/{machine}',[PanneController::class,'ReglePanne'])->name('panneRegle');        
+            Route::get('details/{panne}',[PanneController::class,'Details'])->name('details');        
         });
     });
 
@@ -73,6 +77,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('category/{id}',[CategoryController::class,'listCatgories'])->name('category.listCatgories');
     Route::get('category/{id}/create',[CategoryController::class,'create'])->name('category.create');
+    Route::get('category/{type}/edit/{category}/',[CategoryController::class,'edit'])->name('category.edit');
 
 
     // Resources Routes

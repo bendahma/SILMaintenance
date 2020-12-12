@@ -47,6 +47,11 @@
                             <input type="date" name="dateMiseEnService" id="" class="form-control" placeholder="" value="{{ isset($machine) ? $machine->dateMiseEnService : '' }}">
                         </div>
                         
+                        <div class="col" id="showKilometrageField" style="display:none">
+                            <label for="">Kilométrage</label>
+                            <input type="number" name="kilometrage" id="kilometrage" class="form-control" value=" {{isset($machine) ? $machine->kilometrage : '0'}} ">
+                        </div>
+                        
                     </div>
                    
                     <div id="showEnginFields" style="display:none">
@@ -81,6 +86,8 @@
                             </div>
                         </div>
                     </div>
+                   
+                   
                     <div class="row mt-3">
                         <div class="col-lg-12">
                             <label for="">Observation</label>
@@ -93,6 +100,11 @@
                         </div>
                         <div class="col">
                             <input type="reset" value="Efface" class="btn btn-danger btn-block">
+                        </div>
+                    </div>
+                    <div id="showNextVidange" style="display:none" class="my-3">
+                        <div class="alert alert-danger" role="alert">
+                                Kilométrage pour prochaine vidange est : <span id="nextKiloVidange"></span>
                         </div>
                     </div>
                 </form>
@@ -108,12 +120,26 @@
                 var e = document.getElementById("chosiType");
                 var choise = e.value;
                 disp = document.getElementById('showEnginFields');
+                kilo = document.getElementById('showKilometrageField');
+                showNextVidange = document.getElementById('showNextVidange');
+                
                 if(choise == '1') {
                     disp.style.display = '';
+                    kilo.style.display = 'none';
+                    showNextVidange.style.display = 'none';
                 }else{
                     disp.style.display = 'none';
+                    kilo.style.display = '';
+                    showNextVidange.style.display = '';
 
                 }
             });
+
+            document.getElementById('kilometrage').addEventListener('keyup',()=>{
+                var k = parseInt(document.getElementById('kilometrage').value);
+                nextKiloVid = k + parseInt({{config('machine.vidangeKilometrage')}})
+                document.getElementById('nextKiloVidange').innerHTML = nextKiloVid + ' Km';
+                console.log(k);
+            })
     </script>
 @endsection

@@ -23,6 +23,15 @@ class Category extends Model
         return $this->hasMany(Machine::class);
     }
 
+    public function convertToHoursMins($time, $format = '%02d:%02d') {
+        if ($time < 1) {
+            return;
+        }
+        $hours = floor($time / 60);
+        $minutes = ($time % 60);
+        return sprintf($format, $hours, $minutes);
+    }
+
 
     public function MTTR_Monthly($id,$month,$year){
 
@@ -35,8 +44,8 @@ class Category extends Model
         }
         $sumDureePanne = $panneMonth->dureeRegelementInMinutes;
         $nbrPanne = $panneMonth->nbrPanne;
-        
-        return $nbrPanne > 0 ? $sumDureePanne / $nbrPanne : 0 ;
+        $duree = $nbrPanne > 0 ? $sumDureePanne / $nbrPanne : 0 ;
+        return $this->convertToHoursMins($duree, '%02d:%02d:00');
     }
 
     public function MTTR_Yearly($id,$year){
@@ -48,8 +57,9 @@ class Category extends Model
         }
         $sumDureePanne = $panneMonth->dureeRegelementInMinutes;
         $nbrPanne = $panneMonth->nbrPanne;
+        $duree = $nbrPanne > 0 ? $sumDureePanne / $nbrPanne : 0 ;
 
-        return $nbrPanne > 0 ? $sumDureePanne / $nbrPanne : 0 ;
+        return  $this->convertToHoursMins($duree, '%02d:%02d:00');
     }
 
     public function MTTR_Global($id){

@@ -18,8 +18,8 @@ class CreatePannesTable extends Migration
             $table->foreignId('demande_travail_id')->constrained();
             $table->foreignId('machine_id')->constrained();
             $table->foreignId('category_id')->constrained();
-            $table->dateTime('dateSortie')->nullable();
-            $table->unsignedBigInteger('reglePar')->nullable();
+            $table->dateTime('dateSortie');
+            $table->unsignedBigInteger('reglePar');
             $table->foreign('reglePar')->references('id')->on('users');
             $table->boolean('panneRegle')->default(false);
             $table->text('travailFait')->nullable();

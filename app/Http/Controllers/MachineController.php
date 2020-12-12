@@ -74,4 +74,20 @@ class MachineController extends Controller
                 ->with('pannes',$pannes);
 
     }
+
+    public function vidange(){
+        $machines = Machine::where('type_id',2)->orWhere('type_id',3)->with('category')->get();
+        return view('machine.vidange')->with('machines',$machines);
+    }
+    public function editKilometrage(Machine $machine){
+        return view('machine.editVidange')->with('machine',$machine);
+    }
+    public function updateKilometrage(Request $request){
+        $machine = Machine::find($request->machine_id);
+        $machine->update([
+            'kilometrage' => $request->kilometrage,
+        ]);
+        Alert::success('Success','Mise à jours de kilométrage success');
+        return redirect(route('machines.vidange'));
+    }
 }

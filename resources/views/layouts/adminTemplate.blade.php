@@ -69,6 +69,14 @@
           <span>Gestion des Panne</span>
         </a>  
       </li>
+
+      <!-- Panne -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('machines.vidange')}}" >
+          <i class="fas fa-oil-can"></i>
+          <span>Gestion des Vidanges</span>
+        </a>  
+      </li>
       
 
       <!-- Divider -->

@@ -48,14 +48,19 @@ class CategoryController extends Controller
         //
     }
 
-    public function edit(Category $category)
+    public function edit(Type $type,Category $category)
     {
-        //
+
+        return view('categories.create')
+                    ->with('type',$type)
+                    ->with('category',$category);
     }
 
     public function update(Request $request, Category $category)
     {
-        //
+        $category->update($request->only(['name']));
+        Alert::success('Success','Mise à jours du categorie avec success');
+        return redirect(route('category.listCatgories',$category->type_id));
     }
 
     public function destroy(Category $category)

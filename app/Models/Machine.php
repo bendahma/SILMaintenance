@@ -16,6 +16,8 @@ class Machine extends Model
 
     protected $guarded = [];
 
+    public const KILOMETRAGE_VIDANGE = 1000;
+
     public function pannes(){
         return $this->hasMany(Panne::class);
     }

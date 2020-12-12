@@ -69,6 +69,19 @@ class PanneController extends Controller
                     ->with('personnel',$personnel);
     }
 
+    public function Details(Panne $panne){
+        $machine = Machine::where('id',$panne->machine_id)->first();
+        $demande = DemandeTravail::find($panne->demande_travail_id);
+        $personnelDemande = Personnel::find($demande->declarePar);
+        $personnelRegle = Personnel::find($panne->reglePar);
+        return view('Panne.show')
+                    ->with('panne',$panne)
+                    ->with('demande',$demande)
+                    ->with('machine',$machine)
+                    ->with('personnelRegle',$personnelRegle)
+                    ->with('personnelDemande',$personnelDemande);
+    }
+
     public function editPanne($id){
         $machine = Machine::where('id',$id)->first();
         $panne = Panne::with(['machines'])->where('machine_id',$machine->id)->where('panneRegle',false)->first();
@@ -98,30 +111,26 @@ class PanneController extends Controller
                         ->with('personnels',$personnels);
     }
     
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
 
-//https://stackoverflow.com/questions/51308503/php-carbon-date-difference-with-only-working-days
-// https://gist.github.com/quawn/8503445
+        //https://stackoverflow.com/questions/51308503/php-carbon-date-difference-with-only-working-days
+        // https://gist.github.com/quawn/8503445
+
+        $panne = Panne::find($id);
+
+        $panne->update([
+            'dateSortie' => $request->dateSortie,
+            'reglePar' => $request->reglePar,
+            'panneRegle' => true,
+            'travailFait' => $request->travailFait,
+            'category_id' => $request->category_id,
+        ]);
 
         $dateEntre = $request->dateEntre; // 2020-12-12 17:00:00        
         $dtSortie = new DateTime($request->dateSortie); // date: 2020-12-12 18:00:00.0 UTC (+00:00)
@@ -131,57 +140,57 @@ class PanneController extends Controller
         $dureeRegelementInDays = $datEntre->diffInDays($datSortie) * 24;
         $dureeRegelementInMinutes = $datEntre->diffInMinutes($datSortie);
 
-        $panne = Panne::find($id);
-        
-        $panne->update([
-            'dateSortie' => $request->dateSortie,
-            'reglePar' => $request->reglePar,
-            'panneRegle' => true,
-            'travailFait' => $request->travailFait,
-            'category_id' => $request->category_id,
-            'dureeRegelementMinute' => $dureeRegelementInMinutes,
-
-        ]);
-        
-        $panneStat = PanneStatistic::where('anneePanne', $request->anneePanne)
+        if($dureeRegelementInMinutes < 1440) {
+            $panne->update([
+                'dureeRegelementMinute' => $dureeRegelementInMinutes,
+    
+            ]);
+            // Check if panne statistic exist for this machine with this month and year
+            $panneStat = PanneStatistic::where('anneePanne', $request->anneePanne)
                                         ->where('moisPanne',$request->moisPanne)
                                         ->where('machine_id',$panne->machine_id)
                                         ->first();
-        
-        if($panneStat != null){
-            $oldPanneDuration = $panneStat->dureeRegelementInMinutes;
-            $oldPanneNbr = $panneStat->nbrPanne;
-            $newPanneDuration = $oldPanneDuration + $dureeRegelementInMinutes ;
-            $newPanneNbr = $oldPanneNbr + 1;
-            $panneStat->update([
-                'dureeRegelementInMinutes' => $newPanneDuration,
-                'nbrPanne' => $newPanneNbr,
-            ]);
+            // if panne statistic exists update the values (duration and nbr panne) 
+            if($panneStat != null){
+                $oldPanneDuration = $panneStat->dureeRegelementInMinutes;
+                $oldPanneNbr = $panneStat->nbrPanne;
+                $newPanneDuration = $oldPanneDuration + $dureeRegelementInMinutes ;
+                $newPanneNbr = $oldPanneNbr + 1;
+                $panneStat->update([
+                    'dureeRegelementInMinutes' => $newPanneDuration,
+                    'nbrPanne' => $newPanneNbr,
+                ]);
+            // else if panne statistic doesn't exist create new panne statistic form this machine with this month and year
+            }else{
+                $panneStat = PanneStatistic::create([
+                    'panne_id' => $panne->id,
+                    'machine_id' => $panne->machine_id,
+                    'category_id' => $panne->category_id,
+                    'anneePanne' => $request->anneePanne,
+                    'moisPanne' => $request->moisPanne,
+                    'dureeRegelementInMinutes' => $dureeRegelementInMinutes,
+                    'nbrPanne' => 1,
+                ]);
+            }
         }else{
-            $panneStat = PanneStatistic::create([
-                'panne_id' => $panne->id,
-                'machine_id' => $panne->machine_id,
-                'category_id' => $panne->category_id,
-                'anneePanne' => $request->anneePanne,
-                'moisPanne' => $request->moisPanne,
-                'dureeRegelementInMinutes' => $dureeRegelementInMinutes,
-                'nbrPanne' => 1,
+            $panne->update([
+                'PLD' => true,
             ]);
         }
+
+        
+        
+        
+       
 
         Alert::success('Success','Panne réglé avec success');
 
         return redirect(route('machine.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
     }
 }
+

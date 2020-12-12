@@ -23,8 +23,8 @@
                         <td> {{$key = $key+1}} </td>
                         <td> {{$panne->demandetravail->dateEntre}} </td>
                         <td> {{$panne->dateSortie}} </td>
-                        <td> {{gmdate("H:i:s", $panne->dureeRegelementMinute*60) }} </td>
-                        <td> <a href="" class="btn btn-success btn-block ">Details</a> </td> 
+                        <td> {{ $panne->PLD != null ? 'PLD (Panne Long Durée)' : gmdate("H:i:s", $panne->dureeRegelementMinute*60) }} </td>
+                        <td> <a href=" {{route('panne.details',$panne->id)}} " class="btn btn-success btn-block ">Details</a> </td> 
                        
                         
                     </tr>
